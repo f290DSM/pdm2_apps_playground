@@ -13,25 +13,41 @@ class QuoteView extends StatefulWidget {
 }
 
 class _QuoteViewState extends State<QuoteView> {
-  var quote = QuoteModel(
-    id: 1,
-    quote:
-        'Mussum ipsum cacildis vidis litrus abertis. Mussum ipsum cacildis vidis litrus abertis.',
-    author: 'Mussun',
-  );
+  QuoteModel quote = QuoteModel();
+
+  bool isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    loadQuote();
+  }
+
+  void loadQuote() async {
+    setState(() {
+      isLoading = true;
+    });
+    var response = await get(Uri.parse('https://dummyjson.com/quotes/random'));
+    setState(() {
+      isLoading = false;
+    });
+    setState(() {
+      quote = QuoteModel.fromJson(jsonDecode(response.body));
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Quote')),
-      body: Center(child: QuoteCardWidget(quoteModel: quote)),
+      appBar: AppBar(
+        title: const Text('Quote'),
+        backgroundColor: Theme.of(context).colorScheme.primaryFixed,
+      ),
+      body: isLoading
+          ? Center(child: CircularProgressIndicator())
+          : QuoteCardWidget(quoteModel: quote),
       floatingActionButton: FloatingActionButton.large(
-        onPressed: () async {
-          var response = await get(Uri.parse('https://dummyjson.com/quotes/random'));          
-          setState(() {
-            quote = QuoteModel.fromJson(jsonDecode(response.body));
-          });
-        },
+        onPressed: loadQuote,
         child: Icon(Icons.refresh),
       ),
     );
