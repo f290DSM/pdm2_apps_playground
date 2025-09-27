@@ -19,14 +19,21 @@ class App extends ConsumerWidget {
     MaterialTheme theme = MaterialTheme(textTheme);
 
     return MaterialApp(
+      theme: ThemeData(        
+        colorScheme: ColorScheme.fromSeed(
+          brightness: ref.watch(themeSwitchProvider)
+              ? Brightness.dark
+              : Brightness.light,
+          seedColor: ref.watch(colorProvider),
+        ),
+      ),
       // theme: ThemeData(colorSchemeSeed: Colors.amber),
-      theme: ref.watch(themeSwitchProvider) 
-          ? theme.light()
-          : theme.dark(),
+      // theme: ref.watch(themeSwitchProvider)
+      //     ? theme.light()
+      //     : theme.dark(),
       home: CounterView(),
     );
   }
 }
 
 final brightnessProvider = StateProvider<Brightness>((ref) => Brightness.light);
-final colorProvider = StateProvider<Color>((ref) => Colors.black);

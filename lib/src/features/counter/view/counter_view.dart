@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pdm2_apps_playground/src/core/providers/app_providers.dart';
 import 'package:pdm2_apps_playground/src/features/counter/view/counter2_view.dart';
+import 'package:pdm2_apps_playground/src/features/counter/viewmodel/counter_viewmodel.dart';
 
 class CounterView extends ConsumerStatefulWidget {
   const CounterView({super.key});
@@ -27,6 +28,19 @@ class _CounterViewState extends ConsumerState<CounterView> {
                   : Icons.light_mode,
             ),
           ),
+          PopupMenuButton(
+            onSelected: (color) => ref.read(colorProvider.notifier).state = color,
+            itemBuilder: (context) {
+              return Colors.primaries
+                  .map(
+                    (color) => PopupMenuItem(                    
+                      value: color,
+                      child: Icon(Icons.circle, color: color),
+                    ),
+                  )
+                  .toList();
+            },
+          ),
         ],
       ),
       body: Center(
@@ -34,7 +48,7 @@ class _CounterViewState extends ConsumerState<CounterView> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              '${ref.watch(counterProvider)}',
+              '${ref.watch(counterViewModelProvider)}',
               style: TextStyle(fontSize: 72),
             ),
             FilledButton(
