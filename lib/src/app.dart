@@ -19,12 +19,13 @@ class App extends ConsumerWidget {
     MaterialTheme theme = MaterialTheme(textTheme);
 
     return MaterialApp(
-      theme: ThemeData(        
-        colorScheme: ColorScheme.fromSeed(
+      theme: ThemeData(     
+        useMaterial3: false,   
+        colorScheme: ColorScheme.fromSwatch(
           brightness: ref.watch(themeSwitchProvider)
               ? Brightness.dark
               : Brightness.light,
-          seedColor: ref.watch(colorProvider),
+          primarySwatch: ref.watch(colorProvider),
         ),
       ),
       // theme: ThemeData(colorSchemeSeed: Colors.amber),

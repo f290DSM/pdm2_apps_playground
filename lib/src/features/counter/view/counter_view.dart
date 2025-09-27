@@ -47,7 +47,7 @@ class _CounterViewState extends ConsumerState<CounterView> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              '${ref.watch(counterViewModelProvider)}',
+              '${ref.watch(counterProvider)}',
               style: TextStyle(fontSize: 72),
             ),
             FilledButton(
