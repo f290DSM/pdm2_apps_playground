@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pdm2_apps_playground/src/core/providers/app_providers.dart';
 import 'package:pdm2_apps_playground/src/features/counter/view/counter2_view.dart';
+import 'package:pdm2_apps_playground/src/features/counter/viewmodel/counter_vm.dart';
 
 class CounterView extends ConsumerStatefulWidget {
   const CounterView({super.key});
@@ -13,6 +14,9 @@ class CounterView extends ConsumerStatefulWidget {
 class _CounterViewState extends ConsumerState<CounterView> {
   @override
   Widget build(BuildContext context) {
+    final counter = ref.watch(counterViewModelProvider);
+    final viewModel = ref.watch(counterViewModelProvider.notifier);
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Counter'),
@@ -28,11 +32,12 @@ class _CounterViewState extends ConsumerState<CounterView> {
             ),
           ),
           PopupMenuButton(
-            onSelected: (color) => ref.read(colorProvider.notifier).state = color,
+            onSelected: (color) =>
+                ref.read(colorProvider.notifier).state = color,
             itemBuilder: (context) {
               return Colors.primaries
                   .map(
-                    (color) => PopupMenuItem(                    
+                    (color) => PopupMenuItem(
                       value: color,
                       child: Icon(Icons.circle, color: color),
                     ),
@@ -46,10 +51,7 @@ class _CounterViewState extends ConsumerState<CounterView> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              '${ref.watch(counterProvider)}',
-              style: TextStyle(fontSize: 72),
-            ),
+            Text('$counter', style: TextStyle(fontSize: 72)),
             FilledButton(
               onPressed: () {
                 Navigator.push(
@@ -63,9 +65,7 @@ class _CounterViewState extends ConsumerState<CounterView> {
         ),
       ),
       floatingActionButton: FloatingActionButton.large(
-        onPressed: () {
-          ref.read(counterProvider.notifier).state++;
-        },
+        onPressed: (){},
         child: Icon(Icons.add),
       ),
     );
