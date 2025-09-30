@@ -30,8 +30,8 @@ class App extends ConsumerWidget {
       routes: {
         '/' : (context) => HomeView(),
         '/counter': (context) => CounterView(),
-        '/counter2' : (context) => Counter2View(),
         '/quotes' : (context) => QuoteView()
+        //TODO: Incluir navegacao para QuotesView
       },
     );
   }

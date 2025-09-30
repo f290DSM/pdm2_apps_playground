@@ -16,6 +16,7 @@ class HomeView extends ConsumerWidget {
             subtitle: 'Counter with Riverpod',
             destination: '/counter',
           ),
+          //TODO: Criar navegação para a tela QuotesView
         ],
       ),
     );
