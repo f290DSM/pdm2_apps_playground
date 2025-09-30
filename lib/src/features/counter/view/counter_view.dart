@@ -54,10 +54,7 @@ class _CounterViewState extends ConsumerState<CounterView> {
             Text('$counter', style: TextStyle(fontSize: 72)),
             FilledButton(
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => Counter2View()),
-                );
+                Navigator.pushNamed(context, '/counter2');
               },
               child: Text('Second View'),
             ),
@@ -65,7 +62,7 @@ class _CounterViewState extends ConsumerState<CounterView> {
         ),
       ),
       floatingActionButton: FloatingActionButton.large(
-        onPressed: (){},
+        onPressed: viewModel.increment,
         child: Icon(Icons.add),
       ),
     );

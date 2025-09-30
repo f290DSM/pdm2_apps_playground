@@ -8,16 +8,25 @@ class Counter2View extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final counter = ref.watch(counterViewModelProvider);
+    final vm = ref.read(counterViewModelProvider.notifier);
     return Scaffold(
       appBar: AppBar(title: Text('Counter 2')),
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          SizedBox(width: double.maxFinite),
           Text(counter.toString()),
           FilledButton.icon(
-            onPressed: () {},
+            onPressed: vm.increment,
             label: Text('Increment'),
             icon: Icon(Icons.add),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: Text('VOLTAR'),
           ),
         ],
       ),
