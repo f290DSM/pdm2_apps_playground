@@ -1,13 +1,10 @@
 import 'dart:convert';
-import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart';
-import 'package:pdm2_apps_playground/src/app.dart';
 import 'package:pdm2_apps_playground/src/features/quotes/model/quote_model.dart';
 import 'package:pdm2_apps_playground/src/features/quotes/view/widget/quote_card_widget.dart';
-import 'package:provider/provider.dart';
 
 class QuoteView extends ConsumerStatefulWidget {
   const QuoteView({super.key});
