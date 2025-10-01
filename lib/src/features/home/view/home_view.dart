@@ -16,6 +16,12 @@ class HomeView extends ConsumerWidget {
             subtitle: 'Counter with Riverpod',
             destination: '/counter',
           ),
+          CustomListTile(
+            icon: Icons.add,
+            title: 'Quotes',
+            subtitle: 'Quotes with Future API',
+            destination: '/quotes',
+          ),
           //TODO: Criar navegação para a tela QuotesView
         ],
       ),

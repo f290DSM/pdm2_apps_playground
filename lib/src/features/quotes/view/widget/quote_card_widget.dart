@@ -11,7 +11,7 @@ class QuoteCardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Card(
-        margin: EdgeInsets.only(left: 16, right: 16),
+        margin: EdgeInsets.only(left: 16, right: 16, bottom: 16),
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(

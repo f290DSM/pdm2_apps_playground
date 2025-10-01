@@ -40,34 +40,34 @@ class _QuoteViewState extends ConsumerState<QuoteView> {
     });
   }
 
+  Future<List<QuoteModel>> getQuotes() async {
+    var response = await get(Uri.parse('https://dummyjson.com/quotes'));
+    return (jsonDecode(response.body)['quotes'] as List)
+        .map((e) => QuoteModel.fromJson(e))
+        .toList();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Quote'),
-        // backgroundColor: Theme.of(context).colorScheme.primaryFixed,
-        actions: [
-          IconButton(
-            icon: Icon(
-              ref.watch(brightnessProvider) == Brightness.light
-                  ? Icons.dark_mode
-                  : Icons.light_mode,
-            ),
-            onPressed: () {
-              ref
-                  .read(brightnessProvider.notifier)
-                  .update(
-                    (state) => state == Brightness.light
-                        ? Brightness.dark
-                        : Brightness.light,
-                  );
-            },
-          ),
-        ],
+      appBar: AppBar(title: const Text('Quotes')),
+      body: FutureBuilder(
+        future: getQuotes(),
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) {
+            return Center(child: CircularProgressIndicator());
+          }
+          if (snapshot.hasError) {
+            return Center(child: Text('Error: ${snapshot.error}'));
+          }
+          return ListView(
+            children: [
+              for (var quote in snapshot.data!)
+                QuoteCardWidget(quoteModel: quote),
+            ],
+          );
+        },
       ),
-      body: isLoading
-          ? Center(child: CircularProgressIndicator())
-          : QuoteCardWidget(quoteModel: quote),
       floatingActionButton: FloatingActionButton.large(
         onPressed: loadQuote,
         child: Icon(Icons.refresh),
